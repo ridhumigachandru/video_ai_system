@@ -1,18 +1,60 @@
-# VmsTrial
+# Video AI Processing System
 
-To start your Phoenix server:
+A full-stack video processing system built using:
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+- Phoenix (Elixir) – UI & video handling
+- FastAPI (Python) – AI inference service
+- YOLOv8 – Object detection
+- FFmpeg – Video clipping & browser-compatible encoding
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Features
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- Upload video file (.mp4)
+- Select start and end time
+- Clip video using FFmpeg
+- Run YOLO object detection
+- Generate annotated video
+- View annotated video directly in browser
+---
 
-## Learn more
+##  Architecture
+User → Phoenix (LiveView UI)
+↓
+FFmpeg (clip video)
+↓
+FastAPI (YOLO detection)
+↓
+FFmpeg (H264 re-encode)
+↓
+Phoenix serves annotated video
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+#  Project Structure
+video-ai-system/
+├── vms_trial/ # Phoenix application
+├── ai_service/ # FastAPI AI service
+├── README.md
+└── .gitignore
+---
+
+# Requirements
+Make sure the following are installed:
+### System Requirements
+
+- Elixir 1.14+
+- Phoenix 1.7+
+- Python 3.10+
+- FFmpeg (must be available in PATH)
+---
+
+**Start AI Service (FastAPI)**
+cd ai_service
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+http://localhost:8000
+**Open a new terminal:**
+cd vms_trial
+mix deps.get
+mix phx.server
+http://localhost:4000
